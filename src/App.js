@@ -6,50 +6,50 @@ import getAllEmployees from './utils/API.js'
 import './App.css';
 
 function App() {
-//   state = {
-//     employees: [],
-//     input: '',
-//     searchedEmployees: []
-// }
+  //   state = {
+  //     employees: [],
+  //     input: '',
+  //     searchedEmployees: []
+  // }
 
-const [ emp, setEmp ] = useState([]);
-const [ input, setInput ] = useState('');
-const [ searchedEmp, setSearchedEmp ] = useState([]);
+  const [emp, setEmp] = useState([]);
+  const [input, setInput] = useState('');
+  const [searchedEmp, setSearchedEmp] = useState([]);
 
 
 
-useEffect(()=> {
-  getAllEmployees()
-  .then(result => {
-    // this.setState({
-    //     employees: result.data.results,
-    //     searchedEmployees: result.data.results
-    // })
-     // console.log(this.state.employees)
-     setEmp(result.data.results);
-     setSearchedEmp(result.data.results);
-  })
-}, [])
+  useEffect(() => {
+    getAllEmployees()
+      .then(result => {
+        // this.setState({
+        //     employees: result.data.results,
+        //     searchedEmployees: result.data.results
+        // })
+        // console.log(this.state.employees)
+        setEmp(result.data.results);
+        setSearchedEmp(result.data.results);
+      })
+  }, [])
 
-useEffect(()=>{
-setSearchedEmp(emp.filter(a=>a.name.first.toLowerCase().includes(input) 
-|| a.name.last.toLowerCase().includes(input) || a.email.includes(input)))
-}, [input])
-  
+  useEffect(() => {
+    setSearchedEmp(emp.filter(a => a.name.first.toLowerCase().includes(input)
+      || a.name.last.toLowerCase().includes(input) || a.email.includes(input)))
+  }, [input])
 
-const handleSort = (val)=> {
-  console.log(val)
 
-      const sorted = emp.sort((a,b)=> a.name.first < b.name.first ? -1 : a.name.first > b.name.first ? 1 : 0)
-      setEmp(sorted)
-}
+  const handleSort = (val) => {
+    console.log(val)
+
+    const sorted = emp.sort((a, b) => a.name.first < b.name.first ? -1 : a.name.first > b.name.first ? 1 : 0)
+    setEmp(sorted)
+  }
 
   return (
     <div className="App">
       <Header />
-      <SearchForm search={setInput}/>
+      <SearchForm search={setInput} />
       <br />
-      <Table emp={searchedEmp} handleSort={handleSort}/>
+      <Table emp={searchedEmp} handleSort={handleSort} />
     </div>
   );
 }
